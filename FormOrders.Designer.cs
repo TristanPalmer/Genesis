@@ -40,6 +40,7 @@
             this.colCustomerName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colViewCustomer = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::Genesis.WaitForm1), true, true);
             ((System.ComponentModel.ISupportInitialize)(this.gridOrders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xpViewOrders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unitOfWorkOrders)).BeginInit();
@@ -142,6 +143,10 @@
             this.repositoryItemButtonEdit1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             this.repositoryItemButtonEdit1.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.repositoryItemButtonEdit1_ButtonClick_1);
             // 
+            // splashScreenManager1
+            // 
+            this.splashScreenManager1.ClosingDelay = 500;
+            // 
             // FormOrders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -172,6 +177,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colCustomerName;
         private DevExpress.XtraGrid.Columns.GridColumn colViewCustomer;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit1;
+        private DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager1;
     }
 }
 

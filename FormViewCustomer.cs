@@ -64,20 +64,9 @@ namespace Genesis
                 Customer.FirstName = txtFirstName.Text;
                 Customer.LastName = txtLastName.Text;
 
-                try
-                {
-                    // Persist changes to database:
-                    Customer.Save();
-                    Customer.Session.CommitTransaction();
-
-                    // Record success and close form:
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error saving customer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                // Record valid result and close form:
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
         }
 

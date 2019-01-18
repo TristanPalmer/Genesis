@@ -18,8 +18,15 @@ namespace Genesis
         {
             InitializeComponent();
 
-            // Connect to db:
-            Orders.ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.None, true);
+            try
+            {
+                Orders.ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.None, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to connect to database", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
         }
 
         /// <summary>
@@ -48,14 +55,37 @@ namespace Genesis
             if (customer != null)
             {
                 // ... open FormViewCustomer:
-                var viewCustomerForm = new FormViewCustomer(customer);
+                var customerForm = new FormViewCustomer(customer);
 
-                viewCustomerForm.ShowDialog();
+                customerForm.ShowDialog();
 
                 // When form is closed, reload grid if changes made:
-                if (viewCustomerForm.DialogResult == DialogResult.OK)
+                if (customerForm.DialogResult == DialogResult.OK)
                 {
-                    xpViewOrders.Reload();
+                    try
+                    {
+                        // "loading..." screen:
+                        splashScreenManager1.ShowWaitForm();
+
+                        // Persist changes to database:
+                        customerForm.Customer.Save();
+                        customerForm.Customer.Session.CommitTransaction();
+
+                        // Close loading screen:
+                        if (splashScreenManager1.IsSplashFormVisible) { splashScreenManager1.CloseWaitForm(); }
+
+                        // Reload grid ui:
+                        xpViewOrders.Reload();
+                    }
+                    catch
+                    {
+                        // Close loading screen:
+                        if (splashScreenManager1.IsSplashFormVisible) { splashScreenManager1.CloseWaitForm(); }
+
+                        // Any other error handling etc...
+
+                        MessageBox.Show("Error saving customer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);                        
+                    }
                 }
             }
         }
